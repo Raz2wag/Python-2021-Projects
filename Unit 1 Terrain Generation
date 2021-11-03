@@ -1,0 +1,70 @@
+# Imports moduals and names turtles and screens
+import numpy as np
+import sys
+import turtle
+wrld = turtle.Turtle()
+wn = turtle.Screen()
+height = 360
+width = 360
+wn.screensize(width, height)
+wrld.speed(0)
+wrld.hideturtle()
+# sets threshhols and the max size the map can be
+np.set_printoptions(threshold=sys.maxsize)
+from scipy.ndimage.interpolation import zoom
+arr = np.random.uniform(size=(15*4,15*4))
+arr = zoom(arr,4)
+# generates terrain following the size and constrictions it can be
+arr = arr > 0.5
+arr = np.where(arr,1,0)
+arr = np.array_str(arr, max_line_width=500)
+# this code sets names of varibles and m oves the turtle objects to the starts of the print
+wrld.penup()
+wrld.goto(-360,360)
+wrld.pensize(5)
+xpos = 360
+char = 0
+char_arr = 0
+wrld.speed(0)
+end = len(arr)-300
+# this loop sets the screen refesh rate and the while loop size
+while(char < end):
+  wn.tracer(0,0)
+  # this if statement sees if there is a [ and if there is it skips it and moves on to the next character in the array
+  if(arr[char_arr] == "["):
+    char_arr = char_arr + 1
+    char = char + 1
+  #  this if statement sees if there is a " " and if there is it skips it and moves on to the next character in the array
+  if(arr[char_arr] == " "):
+    char_arr = char_arr + 1
+    char = char + 1
+  #  this if statement sees if there is a ] and if there is it skips it and moves on to the next character in the array
+  if(arr[char_arr] == "]"):
+    char_arr = char_arr + 2
+    xpos = xpos - 4
+    wrld.goto(-360,xpos)
+    char = char + 1
+  # this if statment sees if there is a 1 and if there is it places a green line down and then moves forward 5 pixles then moves on in the array
+  if(arr[char_arr]=="1"):
+    char_arr = char_arr + 1
+    wrld.pendown()
+    wrld.pencolor("green")
+    wrld.forward(5)
+    wrld.forward(1)
+    wrld.forward(-1)
+    wrld.penup()
+    char = char + 1
+  # this if statment sees if there is a 0 and if there is it places a blue line down and then moves forward 5 pixles then moves on in the array
+  if(arr[char_arr]=="0"):
+    char_arr = char_arr + 1
+    wrld.pendown()
+    wrld.pencolor("blue")
+    wrld.forward(5)
+    wrld.forward(1)
+    wrld.forward(-1)
+    wrld.penup()
+    char = char + 1
+# this end code refeshes the screen so you can see the terrain then loops the refesh so you can look at it for a litle while
+print("45")
+wn.tracer(2,50)
+wn.mainloop()
