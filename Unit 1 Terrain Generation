@@ -65,6 +65,5 @@ while(char < end):
     wrld.penup()
     char = char + 1
 # this end code refeshes the screen so you can see the terrain then loops the refesh so you can look at it for a litle while
-print("45")
 wn.tracer(2,50)
 wn.mainloop()
